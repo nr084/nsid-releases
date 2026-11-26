@@ -11,6 +11,8 @@ nSID is a free, closed-source Windows utility for working with computer identifi
 
 **Version 1.0 status.** Final Windows 11 x64 tests of the published archive are pending. For now, use this build only on test clones.
 
+The Windows 10 22H2 x86 and Windows 11 ARM64 builds have not been tested for startup or migration. Use them only on test clones.
+
 nSID is being developed for migrating Windows clones in workgroups. See the release page for the operations verified for each version and any limitations.
 
 Before migration, fully decrypt the system volume and affected data volumes. Suspending BitLocker is insufficient.
