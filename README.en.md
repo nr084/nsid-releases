@@ -38,3 +38,11 @@ Migration involves signing users out and restarting Windows. Save work in all se
 The interface is available in Russian and English. In Settings, choose the light theme, the dark theme, or the Windows default. The archive includes command-line instructions and license terms in both languages.
 
 © nr084
+
+## nSID 1.0 interface
+
+These screenshots show the Russian interface. English is also available.
+
+![Settings, light theme](screenshots/ru/settings-light.png)
+![Settings, dark theme](screenshots/ru/settings-dark.png)
+![About, dark theme](screenshots/ru/about-dark.png)
