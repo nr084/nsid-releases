@@ -1,60 +1,60 @@
-# nSID для Windows
+# nSID for Windows
 
-[English](README.en.md) · [Загрузки](https://github.com/nr084/nsid-releases/releases) · [Лицензия](LICENSE.ru.md)
+[Русский](README.ru.md) · [Downloads](https://github.com/nr084/nsid-releases/releases) · [License](LICENSE.en.md)
 
 > [!WARNING]
-> **Смена SID и других системных идентификаторов может привести к потере данных и сделать Windows незагружаемой.** После операции можно потерять доступ к учётным записям, профилям, зашифрованным файлам и сохранённым учётным данным. Приложения и удалённый вход могут перестать работать. Перед запуском сделайте полную резервную копию, проверьте восстановление и сначала испытайте операцию на отдельном клоне.
+> **Changing the machine SID and other system identifiers can cause data loss and leave Windows unable to boot.** You may lose access to accounts, profiles, encrypted files, and stored credentials. Applications and remote sign-in may stop working. Before running the operation, make a full backup, verify that you can restore it, and test on a separate clone first.
 >
-> **nSID поставляется «как есть» (AS IS), без гарантий** в пределах, допускаемых применимым законом. Правообладатель не отвечает за ущерб, связанный с использованием программы, в той мере, в какой это допускает закон. Обязательные права пользователя сохраняются. Подробности приведены в [лицензии](LICENSE.ru.md).
+> **nSID is provided AS IS, without warranties** to the extent permitted by applicable law. The copyright holder is not liable for damage arising from use of the software to the extent permitted by law. Mandatory user rights remain in effect. See the [license](LICENSE.en.md) for details.
 
-nSID — бесплатная утилита с закрытым исходным кодом для работы с идентификаторами компьютера в Windows. Графическая версия показывает текущий SID компьютера и настройки подсистем. Консольная версия читает SID и сохраняет диагностические отчёты.
+nSID is a free, closed-source Windows utility for working with computer identifiers. The graphical version displays the current machine SID and subsystem settings. The command-line version reads the SID and writes diagnostic reports.
 
-## Проверенные системы в nSID 1.1
+## Tested systems in nSID 1.1
 
-| Система | Архитектура | Графическая и консольная версии |
+| System | Architecture | GUI and CLI |
 | --- | --- | --- |
-| Windows 10 Pro 22H2 | x86, x64 | Проверены на клонах QEMU |
-| Windows Server 2022 и 2025 Standard с рабочим столом | x64 | Проверены на клонах QEMU |
-| Windows 11 | x64 | Для неизменившихся сценариев использованы результаты приёмки 1.0 |
-| Windows 11 | ARM64 | Сборка доступна, испытаний в ВМ пока не было |
+| Windows 10 Pro 22H2 | x86, x64 | Tested in QEMU clones |
+| Windows Server 2022 and 2025 Standard with Desktop Experience | x64 | Tested in QEMU clones |
+| Windows 11 | x64 | Unchanged scenarios use the 1.0 acceptance results |
+| Windows 11 | ARM64 | Build available, VM testing pending |
 
-В восьми прогонах Windows 10 и Windows Server проверены новый SID,
-штатная перезагрузка, новый вход по WinRM и доступ исходного администратора
-и обычного пользователя к прежним профилям. Для тестовых данных подтверждены
-DPAPI, EFS и работа закрытого ключа сертификата. OneDrive и Device ID
-проверены на синтетических записях. Результаты этих проверок не распространяются
-на облачную синхронизацию, реальные учётные записи OneDrive или произвольные приложения.
+The eight Windows 10 and Windows Server runs verified a new machine SID,
+a normal restart, a fresh WinRM sign-in, and access to the original profiles
+for both an administrator and a standard user. DPAPI, EFS, and certificate
+private-key use passed with test data. OneDrive and Device ID checks used
+synthetic entries. This coverage excludes cloud sync, live OneDrive accounts,
+and application-specific behavior.
 
-nSID разрабатывается для миграции клонов Windows в рабочей группе. Перечень проверенных операций и ограничения конкретной версии приводятся на странице релиза.
+nSID is being developed for migrating Windows clones in workgroups. See the release page for the operations verified for each version and any limitations.
 
-Перед миграцией полностью расшифруйте системный том и затрагиваемые тома данных. Приостановки BitLocker недостаточно.
+Before migration, fully decrypt the system volume and affected data volumes. Suspending BitLocker is insufficient.
 
-Храните полный образ вне компьютера и заранее проверьте его восстановление на клоне. Если Windows перестанет загружаться после миграции, используйте WinRE или загрузочный носитель вашего средства резервного копирования, чтобы вернуть образ, созданный до запуска nSID. Порядок восстановления описан в инструкции внутри архива. [Среда восстановления Windows](https://support.microsoft.com/en-us/windows/experience/backup-recovery/windows-recovery-environment)
+Keep a full image off the computer and verify that it restores on a clone. If Windows fails to boot after migration, use WinRE or your backup provider's bootable media to restore the image created before running nSID. The archive includes recovery instructions. [Windows Recovery Environment](https://support.microsoft.com/en-us/windows/experience/backup-recovery/windows-recovery-environment)
 
-### Сохранённые учётные данные Windows
+### Saved Windows credentials
 
-Смена SID может сделать записи Диспетчера учётных данных недоступными, даже когда профиль и данные DPAPI сохранились. Если вам нужны записи Диспетчера учётных данных, выполните эти действия отдельно под владельцем каждого затронутого профиля. Сначала проверьте восстановление на отдельном клоне.
+Changing the SID can make Credential Manager entries unavailable even when the profile and DPAPI-protected data survive. If you rely on Credential Manager entries, follow these steps separately as the owner of each affected profile. Verify restoration on a separate clone first.
 
-1. До смены SID откройте через поиск Windows «Диспетчер учётных данных». Выберите «Учётные данные Windows» → «Архивация учётных данных». Сохраните файл `.crd` в защищённом месте и задайте пароль архива в мастере Windows.
-2. После перезагрузки войдите в тот же профиль. Если нужные записи недоступны, откройте «Восстановление учётных данных», выберите архив этого профиля и введите пароль архива. Мастер может заменить учётные данные, добавленные или изменённые после архивации.
-3. Проверьте доступ в приложении или к сетевому ресурсу, которому нужна запись.
+1. Before changing the SID, search Windows for Credential Manager. Select Windows Credentials → Back up Credentials. Save the `.crd` file in a protected location and set an archive password in the Windows wizard.
+2. After restarting, sign in to the same profile. If you need to recover missing entries, choose Restore Credentials, select that profile's archive, and enter its password. The wizard may replace credentials added or changed after the backup.
+3. Verify access in the application or network resource that uses the saved credential.
 
-Мастер может попросить нажать Ctrl+Alt+Delete для перехода на защищённый рабочий стол Windows. Архив охватывает поддерживаемые мастером записи Windows. Входы на сайты восстанавливаются средствами браузера.
+The wizard may ask you to press Ctrl+Alt+Delete to switch to the Windows secure desktop. The archive covers Windows entries supported by the wizard. Website sign-ins are handled by your browser.
 
-Сохраните копию вне компьютера, который предстоит изменить. Если профиль принадлежит отключённой учётной записи, согласуйте проверку защищённых данных с владельцем до миграции. Пока владелец не может войти в свой сеанс, итог проверки этого профиля остаётся открытым.
+Keep a copy off the computer being migrated. If a profile belongs to a disabled account, coordinate protected-data checks with its owner before migration. Verification for that profile remains pending until the owner can sign in.
 
-Защищённые ассоциации файлов и протоколов остаются под управлением Windows. Если после миграции Windows предложит выбрать приложение или откроет файл в другой программе, восстановите нужное назначение в разделе «Параметры → Приложения → Приложения по умолчанию».
+Windows manages protected file and protocol associations. If Windows asks you to choose an app after migration or opens a file in a different app, set your preferred app under Settings → Apps → Default apps.
 
-Миграция предусматривает завершение пользовательских сеансов и перезапуск Windows. Сохраните работу во всех сеансах перед запуском. Если вы работаете через RDP, для завершения сеанса выберите «Выйти» в Windows. Закрытие окна RDP оставляет сеанс открытым. После перезапуска проверьте итоговый отчёт, прежде чем возвращать компьютер в эксплуатацию. В браузере может потребоваться повторный вход на сайты.
+Migration involves signing users out and restarting Windows. Save work in all sessions before starting. If you use RDP, choose Sign out in Windows to end the session. Closing the RDP window leaves it open. After the restart, review the result report before returning the computer to service. You may need to sign in to websites again.
 
-Интерфейс доступен на русском и английском. В меню настроек можно выбрать светлую или тёмную тему либо использовать тему Windows. Инструкции для CLI и лицензия на обоих языках входят в архив.
+The interface is available in Russian and English. In Settings, choose the light theme, the dark theme, or the Windows default. The archive includes command-line instructions and license terms in both languages.
 
 © nr084
 
-## Интерфейс
+## Interface
 
-Скриншоты показывают русскую версию интерфейса 1.0.
+Screenshots show the Russian interface in 1.0.
 
-![Настройки, светлая тема](screenshots/ru/settings-light.png)
-![Настройки, тёмная тема](screenshots/ru/settings-dark.png)
-![О программе](screenshots/ru/about-dark.png)
+![Settings, light theme](screenshots/ru/settings-light.png)
+![Settings, dark theme](screenshots/ru/settings-dark.png)
+![About](screenshots/ru/about-dark.png)
