@@ -53,8 +53,8 @@ The interface is available in Russian and English. In Settings, choose the light
 
 ## Interface
 
-Screenshots show the Russian interface in 1.0.
+Screenshots show nSID 1.1.
 
-![Settings, light theme](screenshots/ru/settings-light.png)
-![Settings, dark theme](screenshots/ru/settings-dark.png)
-![About](screenshots/ru/about-dark.png)
+![Settings, light theme](screenshots/en/settings-light.png)
+![Settings, dark theme](screenshots/en/settings-dark.png)
+![About](screenshots/en/about-dark.png)
