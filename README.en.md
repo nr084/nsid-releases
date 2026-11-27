@@ -9,7 +9,9 @@
 
 nSID is a free, closed-source Windows utility for working with computer identifiers. The graphical version displays the current machine SID and subsystem settings. The command-line version reads the SID and writes diagnostic reports.
 
-**Version 1.0 status.** Final Windows 11 x64 tests of the published archive are pending. For now, use this build only on test clones.
+**Version 1.0 status.** Windows 11 x64 testing in QEMU confirmed SID migration, a normal restart, sign-in to the original profiles, and a fresh WinRM session. Those full runs used an earlier v1.0 archive. The current archive was checked separately for the updated interface and CLI status reporting. Use this build only on test clones.
+
+Resetting OneDrive removes its account connection settings from the profile. Users may need to sign in to OneDrive again. OneDrive and Device ID operations were tested on synthetic entries. OneDrive cloud reconnection and app registration with a new Device ID remain unverified.
 
 The Windows 10 22H2 x86 and Windows 11 ARM64 builds have not been tested for startup or migration. Use them only on test clones.
 
