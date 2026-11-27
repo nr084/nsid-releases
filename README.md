@@ -15,7 +15,7 @@ nSID is a free, closed-source Windows utility for working with computer identifi
 | --- | --- | --- |
 | Windows 10 Pro 22H2 | x86, x64 | Tested in QEMU clones |
 | Windows Server 2022 and 2025 Standard with Desktop Experience | x64 | Tested in QEMU clones |
-| Windows 11 | x64 | Unchanged scenarios use the 1.0 acceptance results |
+| Windows 11 | x64 | Tested |
 | Windows 11 | ARM64 | Build available, VM testing pending |
 
 The eight Windows 10 and Windows Server runs verified a new machine SID,
