@@ -1,4 +1,4 @@
-# nSID for Windows 11 x64
+# nSID for Windows
 
 [Русский](README.md) · [Downloads](https://github.com/nr084/nsid-releases/releases) · [License](LICENSE.en.md)
 
@@ -9,11 +9,21 @@
 
 nSID is a free, closed-source Windows utility for working with computer identifiers. The graphical version displays the current machine SID and subsystem settings. The command-line version reads the SID and writes diagnostic reports.
 
-**Version 1.0 status.** Windows 11 x64 testing in QEMU confirmed SID migration, a normal restart, sign-in to the original profiles, and a fresh WinRM session. Those full runs used an earlier v1.0 archive. The current archive was checked separately for the updated interface and CLI status reporting. Use this build only on test clones.
+## Tested systems in nSID 1.1
 
-Resetting OneDrive removes its account connection settings from the profile. Users may need to sign in to OneDrive again. OneDrive and Device ID operations were tested on synthetic entries. OneDrive cloud reconnection and app registration with a new Device ID remain unverified.
+| System | Architecture | GUI and CLI |
+| --- | --- | --- |
+| Windows 10 Pro 22H2 | x86, x64 | Tested in QEMU clones |
+| Windows Server 2022 and 2025 Standard with Desktop Experience | x64 | Tested in QEMU clones |
+| Windows 11 | x64 | Unchanged scenarios use the 1.0 acceptance results |
+| Windows 11 | ARM64 | Build available, VM testing pending |
 
-The Windows 10 22H2 x86 and Windows 11 ARM64 builds have not been tested for startup or migration. Use them only on test clones.
+The eight Windows 10 and Windows Server runs verified a new machine SID,
+a normal restart, a fresh WinRM sign-in, and access to the original profiles
+for both an administrator and a standard user. DPAPI, EFS, and certificate
+private-key use passed with test data. OneDrive and Device ID checks used
+synthetic entries. This coverage excludes cloud sync, live OneDrive accounts,
+and application-specific behavior.
 
 nSID is being developed for migrating Windows clones in workgroups. See the release page for the operations verified for each version and any limitations.
 
@@ -23,7 +33,7 @@ Keep a full image off the computer and verify that it restores on a clone. If Wi
 
 ### Saved Windows credentials
 
-If you rely on Credential Manager entries, follow these steps separately as the owner of each affected profile. Verify restoration on a separate clone first.
+Changing the SID can make Credential Manager entries unavailable even when the profile and DPAPI-protected data survive. If you rely on Credential Manager entries, follow these steps separately as the owner of each affected profile. Verify restoration on a separate clone first.
 
 1. Before changing the SID, search Windows for Credential Manager. Select Windows Credentials → Back up Credentials. Save the `.crd` file in a protected location and set an archive password in the Windows wizard.
 2. After restarting, sign in to the same profile. If you need to recover missing entries, choose Restore Credentials, select that profile's archive, and enter its password. The wizard may replace credentials added or changed after the backup.
@@ -41,10 +51,10 @@ The interface is available in Russian and English. In Settings, choose the light
 
 © nr084
 
-## nSID 1.0 interface
+## Interface
 
-These screenshots show the Russian interface. English is also available.
+Screenshots show the Russian interface in 1.0.
 
 ![Settings, light theme](screenshots/ru/settings-light.png)
 ![Settings, dark theme](screenshots/ru/settings-dark.png)
-![About, dark theme](screenshots/ru/about-dark.png)
+![About](screenshots/ru/about-dark.png)
